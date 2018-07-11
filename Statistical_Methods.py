@@ -66,3 +66,21 @@ trace2 = go.Scatter(
 data = [trace1, trace2]
 
 py.iplot(data, filename='normal-dists-plot')
+
+
+#-----------------
+# T-test example
+#-----------------
+from pandas import DataFrame
+
+data = {'Category': ['cat2','cat1','cat2','cat1','cat2','cat1','cat2','cat1','cat1','cat1','cat2'],
+        'values': [1,2,3,1,2,3,1,2,3,5,1]}
+
+my_data = DataFrame(data)
+my_data.groupby('Category').mean()
+
+from scipy.stats import ttest_ind
+
+cat1 = my_data[my_data['Category'] == 'cat1']
+cat2 = my_data[my_data['Category'] == 'cat2']
+ttest_ind(cat1['values'], cat2['values'])
