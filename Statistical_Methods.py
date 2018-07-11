@@ -83,4 +83,4 @@ from scipy.stats import ttest_ind
 
 cat1 = my_data[my_data['Category'] == 'cat1']
 cat2 = my_data[my_data['Category'] == 'cat2']
-ttest_ind(cat1['values'], cat2['values'])
+ttest_ind(cat1['values'], cat2['values']) # ttest_ind : Calculate the T-test for the means of two independent samples of scores.
