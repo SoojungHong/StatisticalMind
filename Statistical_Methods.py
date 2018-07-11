@@ -28,3 +28,41 @@ prob = stats.probplot(xt, dist=stats.norm, plot=ax2)
 ax2.set_title('Probplot after Box-Cox transformation')
 
 plt.show()
+
+
+#--------------
+# t-test 
+#--------------
+import plotly.plotly as py
+import plotly.graph_objs as go
+from plotly.tools import FigureFactory as FF
+
+import numpy as np
+import pandas as pd
+import scipy
+
+# some normal distribution with (mean = 0, variance 1)
+data1 = np.random.normal(0, 1, size=50)
+data2 = np.random.normal(2, 1, size=50)
+
+x = np.linspace(-4, 4, 160)
+y1 = scipy.stats.norm.pdf(x)
+y2 = scipy.stats.norm.pdf(x, loc=2)
+
+trace1 = go.Scatter(
+    x = x,
+    y = y1,
+    mode = 'lines+markers',
+    name='Mean of 0'
+)
+
+trace2 = go.Scatter(
+    x = x,
+    y = y2,
+    mode = 'lines+markers',
+    name='Mean of 2'
+)
+
+data = [trace1, trace2]
+
+py.iplot(data, filename='normal-dists-plot')
