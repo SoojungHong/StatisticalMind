@@ -145,3 +145,30 @@ groupby_gender.mean()
 # plotting data
 from pandas.tools import plotting
 plotting.scatter_matrix(data[['Weight', 'Height', 'MRI_Count']])  
+
+#-------------------------
+# hypothesis testing
+#-------------------------
+from scipy import stats
+scipy.stats.ttest_1samp(data['VIQ'], 0) #one sample t-test
+
+female_viq = data[data['Gender'] == 'Female']['VIQ']
+male_viq = data[data['Gender'] == 'Male']['VIQ']
+stats.ttest_ind(female_viq, male_viq) # 2 sample t-test
+
+# paired tests : repeated measurements on the same individuals 
+stats.ttest_ind(data['FSIQ'], data['PIQ'])
+
+#----------------------
+# Linear model 
+#----------------------
+import numpy as np
+x = np.linspace(-5,5,20)
+x.shape #(20,)
+np.random.seed(1)
+y =  -5 + 3*x + 4*np.random.normal(size=x.shape)
+data = pandas.DataFrame({'x':x, 'y':y})
+
+from statsmodels.formula.api import ols
+model = ols("y ~ x", data).fit()
+print model.summary()
